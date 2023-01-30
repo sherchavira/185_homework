@@ -6,6 +6,11 @@
 
 # Your code goes here
 
+i = 5
+while i in range(50):
+	print(i)
+	i+=7
+
 """
 python3 20loop.py
 5
