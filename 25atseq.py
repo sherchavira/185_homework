@@ -7,7 +7,17 @@
 # Report the length, AT fraction, and sequence
 
 # Note: set random.seed() if you want repeatable random numbers
-
+import random
+length = 30
+count = 0
+string = ''
+for r in range(length):
+	r=random.choice('AAATTTCCGG')
+	#print(r,end='')
+	string += r
+	if r == 'A' or r == 'T':
+		count += 1
+print(length,(count/length),string)
 
 """
 python3 25atseq.py
