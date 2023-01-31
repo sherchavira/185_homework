@@ -5,8 +5,13 @@
 # Use the same loop for both calculations
 
 # Note: you may not import math or any other library
-
-
+s = 1
+n = 5
+b = 0
+for i in range(1,n+1):
+	s = s*i
+	b = b+i
+print(n,b,s)
 """
 python3 22sumfac.py
 5 15 120
