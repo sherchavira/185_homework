@@ -7,7 +7,12 @@
 # Note: use 0-based indexing for position and frame (biology uses 1-based)
 
 dna = 'ATGGCCTTT'
-
+frame = 0
+for i in range(len(dna)):
+	if frame >= 3:
+		frame = 0
+	print(i,frame,dna[i])
+	frame += 1
 
 """
 python3 27frame.py
