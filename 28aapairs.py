@@ -1,4 +1,3 @@
-# 28aapairs.py
 
 # Print out all the unique pairwise amino acid combinations
 # AC is the same as CA
@@ -6,6 +5,14 @@
 # Also print out how many combinations there are
 
 # Hint: if you get stuck for more than 10 minutes, get help
+
+aminos = 'ACDEFGHIKLMNPQRSTVWY'
+n = 0
+for i in range(0, len(aminos)):
+	for j in range(i + 1, len(aminos)):
+		n = n + 1
+		print(aminos[i], aminos[j])
+print(n)
 
 
 """
