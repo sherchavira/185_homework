@@ -11,10 +11,22 @@
 # And subtracting 1 letter from the other side
 # Consider the pros/cons of this algorithm vs. nested loops
 
-seq = 'ACGACGCAGGAGGAGAGTTTCAGAGATCACGAATACATCCATATTACCCAGAGAGAG'
-w = 11
+DNA_sequence = 'ACGACGCAGGAGGAGAGTTTCAGAGATCACGAATACATCCATATTACCCAGAGAGAG'
 
+window_length = 11
+GC_count = 0
+GC_fraction = 0
+index = 0
 
+while window_length <= len(DNA_sequence):
+	for nt in DNA_sequence[window_length-11:window_length]:
+		if nt == 'C' or nt == 'G':
+			GC_count += 1
+	GC_fraction = GC_count/len(DNA_sequence[window_length-11:window_length])
+	print(index,DNA_sequence[window_length-11:window_length],f"{GC_fraction:.4f}")
+	index += 1
+	window_length += 1
+	GC_count = 0
 """
 python3 26gcwin.py
 0 ACGACGCAGGA 0.6364
