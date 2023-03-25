@@ -66,3 +66,15 @@ YELPDGQVITVGNERFRCPEAMFQPSFLGMESAGIHETSYNSIMKCDIDIRKDLYANTVL\
 SGGTTMYPGIADRMQKEITALAPSTMKIKIIAPPERKYSVWIGGSILASLSTFQQMWISK\
 QEYDESGPSIVHRKCF*\
 "
+import mcb185
+def translate(dna, frame=0):
+	assert(frame >= 0 and frame <=2)
+	protein = ''
+	for i in range(frame, len(dna), 3):
+		codon = actin_cds[i:i+3]
+		if codon in gcode:
+			protein += gcode[codon]
+			print(codon, gcode[codon])
+		else: protein += 'X'
+	return protein
+print(translate(actin_cds.upper(), frame=1)
