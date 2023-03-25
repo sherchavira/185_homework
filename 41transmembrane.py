@@ -21,7 +21,79 @@
 # Hint: create a function for hydrophobic alpha-helix
 # Hint: use the same function for both signal peptide and transmembrane
 
+#copy mcb185 to repo
+#KD calculation
+import mcb185
+import sys
+#file = sys.argv[1]
+#mcb185.read_fasta(file)
 
+def hphob_score(seq):
+	score = 0
+	for aa in seq:
+		if aa == 'I':
+			score += 4.5
+		elif aa == 'V':
+			score += 4.2
+		elif aa == 'L':
+			score += 3.8
+		elif aa == 'F':
+			score += 2.8
+		elif aa == 'C':
+			score += 2.5
+		elif aa == 'M':
+			score += 1.9
+		elif aa == 'A':
+			score += 1.8
+		elif aa == 'G':
+			score += (0 - 0.4)
+		elif aa == 'T':
+			score += (0 - 0.7)
+		elif aa == 'S':
+			score += (0 - 0.8)
+		elif aa == 'W':
+			score += (0 - 0.9)
+		elif aa == 'Y':
+			score += (0 - 1.3)
+		elif aa == 'H':
+			score += (0 - 3.2)
+		elif aa == 'E':
+			score += (0 - 3.5)
+		elif aa == 'Q':
+			score += (0 - 3.5)
+		elif aa == 'D':
+			score += (0 - 3.5)
+		elif aa == 'N':
+			score += (0 - 3.5)
+		elif aa == 'K':
+			score += (0 - 3.9)
+		elif aa == 'R':
+			score += (0 - 4.5)
+	return score/len(seq)
+#hydrophobic alpha helix representation
+#print(hphob_score('AAWQ'))
+		
+#search for signal peptide and transmembrane
+#Run tons of KD that feeds into loop defining as signal or others?
+def hah(seq,w,t):
+	for i in range(len(seq)-w+1):
+		window = seq[i:i+w]
+		if hphob_score(window)>t and 'P' not in window:
+			return True
+	return False
+
+for name,seq in mcb185.read_fasta(sys.argv[1]):
+	nterm = seq[:30]
+	cterm = seq[30:]
+	if hah(nterm,8,2.5) and hah(cterm,11,2.0):
+		print(name)
+		
+
+"""
+			if hphob_score > T
+				return True
+	return False
+"""
 """
 python3 41transmembrane.py ~/DATA/E.coli/GCF_000005845.2_ASM584v2_protein.faa.gz
 NP_414560.1 Na(+):H(+) antiporter NhaA [Escherichia coli str. K-12 substr. MG1655]
