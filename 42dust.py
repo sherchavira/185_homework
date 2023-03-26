@@ -15,6 +15,7 @@
 import mcb185
 import math
 import sys
+import argparse
 
 
 def freq_nt(dna_seq):
@@ -31,14 +32,30 @@ def SH_entropy(seq):
 		if p[i] != 0:
 			h -= p[i] * math.log2(p[i])
 	return h
-w = 11
-t = 1.4
+	
+w = int(sys.argv[2])
+t = float(sys.argv[3])
 
-for name,seq in mcb185.read_fasta(sys.argv[1]):
-	out_seq = list(seq.split())
-	for i in range(len(out_seq) - w +1):
-		if 'N' in out_seq[i:i+w]: continue
-		if SH_entropy(out_seq) < t:
+for defline,seq in mcb185.read_fasta(sys.argv[1]):
+	seq = seq.upper()
+	seql = list(seq)
+	
+	for i in range(len(seq) - w + 1):
+		win = seq[i:i+w]
+		h = SH_entropy(win)
+		
+		if SH_entropy(win) < t:
+			for j in range(len(win)):
+				seql[i + j] = 'N'
+			else:
+				seql[i + j] = seql[i + j].lower()
+	seq = ''.join(seql)
+print(seq)
+
+"""
+for i in range(len(out_seq) - w +1):
+	if 'N' in out_seq[i:i+w]: continue
+	if SH_entropy(out_seq) < t:
 			for j in range(len(seq[i:i+w])):
 				seq[j] = 'N'
 		print(name, seq)
@@ -47,7 +64,7 @@ for name,seq in mcb185.read_fasta(sys.argv[1]):
 #convert to fasta
 #calculate entropy?
 #random fake sequences
-
+"""
 
 """
 python3 42dust.py ~/DATA/E.coli/GCF_000005845.2_ASM584v2_genomic.fna.gz 11 1.4
